@@ -18,6 +18,14 @@ nav span             { margin: 0px 10px 0px 0px;
 
 .quiz_img 			 { height: 150px; float: left;}
 
+footer span{
+	margin-left: 15px;
+}
+
 span.negrita{
 	font-weight: bold;
+}
+
+img.logoAutor {
+	width: 100px;
 }
