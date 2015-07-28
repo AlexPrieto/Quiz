@@ -1,0 +1,7 @@
+
+    <h2> Quiz: el juego de las preguntas </h2>
+    <form method='get' action='/quizes/<%= quiz.id %>/answer'>
+		<label> <%= quiz.pregunta %> </label>
+		<input type='text' name='respuesta' value='Respuesta aquí' />
+		<input type='submit' value='Enviar respuesta' />
+	</form>

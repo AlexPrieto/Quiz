@@ -1,22 +1,42 @@
 var models = require('../models/models.js');
 
-
-exports.question = function(req, res){
-	models.Quiz.findAll().success(function(quiz){
-		res.render("quizes/question",{pregunta: quiz[0].pregunta });
+exports.load = function(req, res, next, quizId){
+	console.log("asdf");
+	models.Quiz.find( quizId ).then(function(quiz){
+		if(quiz){
+			req.quiz = quiz;
+			next();
+		}else{
+			next(new Error("No existe el quizId:"+quizId));
+		}
 	});
 }; 
 
-exports.answer = function(req, res){
-	models.Quiz.findAll().success(function(quiz){
-		var respuesta;
-	
-		if(req.query.respuesta === quiz[0].respuesta ){
-			respuesta = 'Incorrecta';
-		}else{
-			respuesta = 'Correcta';
-		}
-		
-		res.render("quizes/answer",{respuesta: respuesta});
+
+exports.show = function(req, res){
+	res.render("quizes/show",{ quiz: req.quiz });
+}; 
+
+
+exports.index = function(req, res){
+	models.Quiz.findAll().then(function(quizes){
+		res.render("quizes/index",{ quizes: quizes });
 	});
+}; 
+
+
+exports.question = function(req, res){
+	res.render("quizes/new",{});
+}; 
+
+exports.answer = function(req, res){
+	var respuesta;
+
+	if(req.query.respuesta === req.quiz.respuesta ){
+		respuesta = 'Correcta';
+	}else{
+		respuesta = 'Incorrecta';
+	}
+	
+	res.render("quizes/answer",{quiz: req.quiz, respuesta: respuesta});
 }; 
