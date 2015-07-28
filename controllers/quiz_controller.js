@@ -1,14 +1,22 @@
+var models = require('../models/models.js');
+
+
 exports.question = function(req, res){
-	res.render("quizes/question",{pregunta: 'Capital de Italia'});
+	models.Quiz.findAll().success(function(quiz){
+		res.render("quizes/question",{pregunta: quiz[0].pregunta });
+	});
 }; 
 
 exports.answer = function(req, res){
-	var respuesta;
-	if(req.query.respuesta .match(/roma/i) == null ){
-		respuesta = 'Incorrecta';
-	}else{
-		respuesta = 'Correcta';
-	}
+	models.Quiz.findAll().success(function(quiz){
+		var respuesta;
 	
-	res.render("quizes/answer",{respuesta: respuesta});
+		if(req.query.respuesta === quiz[0].respuesta ){
+			respuesta = 'Incorrecta';
+		}else{
+			respuesta = 'Correcta';
+		}
+		
+		res.render("quizes/answer",{respuesta: respuesta});
+	});
 }; 
