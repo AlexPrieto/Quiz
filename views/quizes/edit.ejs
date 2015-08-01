@@ -1,0 +1,35 @@
+<h2> Modificar pregunta </h2>
+<form method='post' action='/quizes/<%= quiz.id %>?_method=put'>
+	<label> Pregunta </label>
+	<input type='text' name='quiz[pregunta]' value='<%= quiz.pregunta %>' />
+	<label> Respuesta </label>
+	<input type='text' name='quiz[respuesta]' value='<%= quiz.respuesta %>' />
+	<select name="quiz[tema]">
+		<% if("otro" == quiz.tema){ %>
+			<option value="otro" selected="selected">Otro</option>
+		<%}else{ %>
+			<option value="otro">Otro</option>
+		<% } %>
+		<% if("humanidades" == quiz.tema){ %>
+			<option value="humanidades" selected="selected">Humanidades</option>
+		<%}else{ %>
+			<option value="humanidades">Humanidades</option>
+		<% } %>
+		<% if("ocio" == quiz.tema){ %>
+			<option value="ocio" selected="selected">Ocio</option>
+		<%}else{ %>
+			<option value="ocio">Ocio</option>
+		<% } %>
+		<% if("ciencia" == quiz.tema){ %>
+			<option value="ciencia" selected="selected">Ciencia</option>
+		<%}else{ %>
+			<option value="ciencia">Ciencia</option>
+		<% } %>
+		<% if("tecnologia" == quiz.tema){ %>
+			<option value="tecnologia" selected="selected">Tecnología</option>
+		<%}else{ %>
+			<option value="tecnologia">Tecnología</option>
+		<% } %>
+	</select>
+	<input type='submit' value='Enviar respuesta' />
+</form>

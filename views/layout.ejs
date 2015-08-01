@@ -24,8 +24,17 @@
 	   		<a href='/quizes' > Preguntas </a><br/>
 	   		<a href='/author'> Créditos </a>
 	   </nav>
-	    
+	   
 	    <section class="main" id="s1">
+	    	<% if(typeof errors !== "undefined") { %>
+	    		<span class="error">
+	    			Corregir errores:<br/>
+	    			<% for(var i in errors){  %>
+	    				<span> <%= errors[i].message %> </span> <br/>
+	    			<% } %>
+	    		</span>
+	    		<br/>
+	    	<%} %>
 	    	<%- body %>
 	    </section>
 	    
@@ -36,3 +45,11 @@
     </div>
   </body>
 </html>
+
+
+
+
+
+
+
+
