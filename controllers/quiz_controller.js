@@ -1,7 +1,6 @@
 var models = require('../models/models.js');
 
 exports.load = function(req, res, next, quizId){
-	console.log("asdf");
 	models.Quiz.find( quizId ).then(function(quiz){
 		if(quiz){
 			req.quiz = quiz;
@@ -33,12 +32,6 @@ exports.create = function(req, res){
 		}
 		
 	});
-
-	/*
-	quiz.save({fields: ["pregunta","respuesta", "tema"]}).then(function(){
-		res.redirect("/quizes");
-	});
-	*/
 }
 
 //actualizamos una quiz
@@ -82,9 +75,17 @@ exports.show = function(req, res){
 
 
 exports.index = function(req, res){
-	models.Quiz.findAll().then(function(quizes){
-		res.render("quizes/index",{ quizes: quizes });
-	});
+	if(req.query.search !== undefined && req.query.search != null){
+		var preguntas = "%"+_sustituirEspacios(req.query.search, "%") +"%";
+		//nos ha llegado una peticion de busquedas
+		models.Quiz.findAll({where: ["pregunta like ?", preguntas] }).then(function(quizes){
+			res.render("quizes/index",{ quizes: quizes, busqueda: "true" });
+		});
+	}else{
+		models.Quiz.findAll().then(function(quizes){
+			res.render("quizes/index",{ quizes: quizes });
+		});
+	}
 }; 
 
 
@@ -103,3 +104,9 @@ exports.answer = function(req, res){
 	
 	res.render("quizes/answer",{quiz: req.quiz, respuesta: respuesta});
 }; 
+
+function _sustituirEspacios(texto, textoReemplazar){
+	var re = new RegExp(" ", "g");
+	
+	return texto.replace(re, textoReemplazar);
+}

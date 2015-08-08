@@ -33,3 +33,7 @@ img.logoAutor {
 .error{
 	color: red;
 }
+
+table .busqueda{
+	margin-bottom: 20px;
+}
