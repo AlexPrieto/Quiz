@@ -1,4 +1,4 @@
-var _tiempoEspera = 2000;
+var _tiempoEspera = 180000;
 
 var users = {
 		admin: {id: 1, username: "admin", password:'1234'},
