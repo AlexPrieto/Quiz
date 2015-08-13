@@ -11,6 +11,7 @@ var app = express();
 
 var partials = require('express-partials');
 var methodOverride = require('method-override');
+var session = require('express-session');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -23,9 +24,26 @@ app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ }));
-app.use(cookieParser());
+app.use(cookieParser("Quiz 2015"));
+app.use(session());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+//
+app.use(function(req, res, next){
+	//se guarda el path para redireccion al hacer login, o logout(menos en el caso del propio login)
+	if( req.path.match("login") == null && req.path.match("logout") == null ){
+		req.session.redir = req.path;
+		console.log("asdf "+req.path+" "+req.path.match("/login/"));
+	}
+	
+	//se hace visible req.session en las vistas
+	res.locals.session = req.session;
+	
+	//nvocamos el next para que otro middelware se haga cargo
+	next();
+	
+});
 
 app.use('/', routes);
 

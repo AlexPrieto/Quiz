@@ -6,3 +6,33 @@
 		<input type='submit' value='Enviar respuesta' />
 	</form>
 	<b> Esta pregunta pertenece a: </b> <%= quiz.tema %> 
+	<br/>
+	<div class="coments">
+		<p>
+			<a href="/quizes/<%= quiz.id %>/comments/new"><button> Nuevo comentario </button>  </a>
+		</p>
+		<p>
+			<h4> Comentarios </h4>
+			<ul>
+				<%
+					for(index in quiz.Comments){
+						if(quiz.Comments[index].publicado || session.user){
+				%>
+					<li> 
+						<%= quiz.Comments[index].texto %> 
+						<%
+							//boton para publicar un comentario
+							if(session.user && !quiz.Comments[index].publicado){
+						%>
+						<form class="formPublicar" action="/quizes/<%= quiz.id %>/comment/<%= quiz.Comments[index].id %>/publish?_method=put" method="post">
+							<input type="submit" value="Publicar" />
+						</form>
+						<% } %>
+					</li>			
+				<%
+						}
+					}
+				%>
+			</ul>
+		</p>
+	</div>

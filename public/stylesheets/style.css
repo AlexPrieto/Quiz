@@ -37,3 +37,35 @@ img.logoAutor {
 table .busqueda{
 	margin-bottom: 20px;
 }
+
+div .coments{
+	margin-top: 20px;
+}
+
+div .coments h4{
+	margin-top: 7px;
+}
+
+header{
+	width: 98%;
+	text-align: center;
+	height: 30px;
+}
+
+header h2{
+	float: left;
+	width: 70%;
+}
+
+header span{
+	width: 30%;
+}
+
+.coments ul li{
+	width: 80%;
+	text-align: left;
+}
+
+.coments ul li form{
+	float: right;
+}
